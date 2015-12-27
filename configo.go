@@ -27,6 +27,17 @@ func Instance(path string, env string) (*Config, error) {
 	return newConfig(path, env)
 }
 
+// Merge other cfg file.
+func (c *Config) Merge(path string) error {
+	source, err := newConfig(path, c.Environment)
+	if err != nil {
+		return err
+	}
+
+	c.config.Merge(source.config)
+	return nil
+}
+
 // String return string value.
 func (c *Config) String(key string) (string, error) {
 	return c.config.String(c.Environment, key)
