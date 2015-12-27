@@ -1,5 +1,8 @@
 ushios/configo
 ==============
+[![Build Status](https://travis-ci.org/ushios/configo.svg?branch=master)](https://travis-ci.org/ushios/configo)
+[![Coverage Status](https://coveralls.io/repos/ushios/configo/badge.svg?branch=master&service=github)](https://coveralls.io/github/ushios/configo?branch=master)
+
 Get config value each environments
 
 Install
