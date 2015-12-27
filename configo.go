@@ -2,9 +2,6 @@ package configo
 
 import "github.com/revel/config"
 
-// singleton instance
-var instance *Config
-
 // Config has configurations.
 type Config struct {
 	Environment string
@@ -12,10 +9,10 @@ type Config struct {
 }
 
 // Create instance for singleton.
-func newConfig(env string) (*Config, error) {
+func newConfig(path string, env string) (*Config, error) {
 	cfg := new(Config)
 	cfg.Environment = env
-	revelConfig, err := config.ReadDefault("sample.cfg")
+	revelConfig, err := config.ReadDefault(path)
 
 	if err != nil {
 		return cfg, err
@@ -26,9 +23,8 @@ func newConfig(env string) (*Config, error) {
 }
 
 // Instance return singleton instance.
-func Instance(env string) (*Config, error) {
-	instance, err := newConfig(env)
-	return instance, err
+func Instance(path string, env string) (*Config, error) {
+	return newConfig(path, env)
 }
 
 // String return string value.
@@ -41,7 +37,7 @@ func (c *Config) Int(key string) (int, error) {
 	return c.config.Int(c.Environment, key)
 }
 
-// Floag return float value.
+// Float return float value.
 func (c *Config) Float(key string) (float64, error) {
 	return c.config.Float(c.Environment, key)
 }

@@ -3,7 +3,7 @@ package configo
 import "testing"
 
 func TestConfigoDev(t *testing.T) {
-	config, err := Instance("dev")
+	config, err := Instance("sample.cfg", "dev")
 
 	if err != nil {
 		t.Errorf("Cannot get config (%s)", err)
@@ -32,7 +32,7 @@ func TestConfigoDev(t *testing.T) {
 }
 
 func TestConfigoPrd(t *testing.T) {
-	config, err := Instance("prd")
+	config, err := Instance("sample.cfg", "prd")
 
 	if err != nil {
 		t.Errorf("Cannot get config (%s)", err)
