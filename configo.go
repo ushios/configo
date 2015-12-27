@@ -25,12 +25,12 @@ func newConfig(env string) (*Config, error) {
 	return cfg, err
 }
 
-func (c *Config) String(key string) (string, error) {
-	return c.config.String(c.Environment, key)
-}
-
 // Instance return singleton instance.
 func Instance(env string) (*Config, error) {
 	instance, err := newConfig(env)
 	return instance, err
+}
+
+func (c *Config) String(key string) (string, error) {
+	return c.config.String(c.Environment, key)
 }
