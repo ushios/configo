@@ -29,9 +29,9 @@ host: github.com
 
 sample.go:
 ```sample.go
-config, err := Instance("sample.cfg", "dev")
-fmt.Println(config.String("host")) // dev.github.com
+config, err := configo.Instance("sample.cfg", "dev")
 
+fmt.Println(config.String("host")) // dev.github.com
 ```
 
 License
