@@ -9,23 +9,26 @@ func TestConfigoDev(t *testing.T) {
 		t.Errorf("Cannot get config (%s)", err)
 	}
 
-	host, err := config.String("host")
-	if err != nil {
-		t.Errorf("Cannot got host key value (%s)", err)
-	}
-
+	host, _ := config.String("host")
 	if host != "dev.github.com" {
 		t.Errorf("`host` expected (%s) but (%s)", "dev.github.com", host)
 	}
 
-	port, err := config.Int("port")
-	if err != nil {
-		t.Errorf("Cannot got port key value(%s)", err)
-	}
-
+	port, _ := config.Int("port")
 	if port != 80 {
 		t.Errorf("`port` expected (%d) but (%d)", 80, port)
 	}
+
+	pi, _ := config.Float("pi")
+	if pi != 3.14 {
+		t.Errorf("`pi` expected (%f) but (%f)", 3.14, pi)
+	}
+
+	prd, _ := config.Bool("prd")
+	if prd != false {
+		t.Errorf("`prd` expected (%t) but (%t)", false, prd)
+	}
+
 }
 
 func TestConfigoPrd(t *testing.T) {
@@ -35,21 +38,23 @@ func TestConfigoPrd(t *testing.T) {
 		t.Errorf("Cannot get config (%s)", err)
 	}
 
-	host, err := config.String("host")
-	if err != nil {
-		t.Errorf("Cannot got host key value (%s)", err)
-	}
-
+	host, _ := config.String("host")
 	if host != "github.com" {
 		t.Errorf("`host` expected (%s) but (%s)", "github.com", host)
 	}
 
-	port, err := config.Int("port")
-	if err != nil {
-		t.Errorf("Cannot got port key value(%s)", err)
-	}
-
+	port, _ := config.Int("port")
 	if port != 443 {
 		t.Errorf("`port` expected (%d) but (%d)", 443, port)
+	}
+
+	pi, _ := config.Float("pi")
+	if pi != 3.1415 {
+		t.Errorf("`pi` expected (%f) but (%f)", 3.1415, pi)
+	}
+
+	prd, _ := config.Bool("prd")
+	if prd != true {
+		t.Errorf("`prd` expected (%t) but (%t)", true, prd)
 	}
 }
