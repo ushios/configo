@@ -15,8 +15,7 @@ go get github.com/ushios/config
 Usage
 =====
 
-`sample.cfg`
-
+sample.cfg:
 ```sample.cfg
 [DEFAULT]
 host: github.local
@@ -28,7 +27,7 @@ host: dev.github.com
 host: github.com
 ```
 
-`sample.go`
+sample.go:
 ```sample.go
 config, err := Instance("dev")
 fmt.Println(config.String("host")) // dev.github.com
