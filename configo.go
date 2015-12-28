@@ -1,6 +1,10 @@
 package configo
 
-import "github.com/revel/config"
+import (
+	"bufio"
+
+	"github.com/ushios/config"
+)
 
 // Config has configurations.
 type Config struct {
@@ -8,28 +12,30 @@ type Config struct {
 	config      *config.Config
 }
 
-// Create instance for singleton.
-func newConfig(path string, env string) (*Config, error) {
+// Create config.
+func _config(reader *bufio.Reader, env string) (*Config, error) {
 	cfg := new(Config)
 	cfg.Environment = env
-	revelConfig, err := config.ReadDefault(path)
+
+	ushiosConfig := config.NewDefault()
+	err := ushiosConfig.UsingReader(reader)
 
 	if err != nil {
 		return cfg, err
 	}
 
-	cfg.config = revelConfig
+	cfg.config = ushiosConfig
 	return cfg, err
 }
 
 // Instance return singleton instance.
-func Instance(path string, env string) (*Config, error) {
-	return newConfig(path, env)
+func Instance(reader *bufio.Reader, env string) (*Config, error) {
+	return _config(reader, env)
 }
 
 // Merge other cfg file.
-func (c *Config) Merge(path string) error {
-	source, err := newConfig(path, c.Environment)
+func (c *Config) Merge(reader *bufio.Reader) error {
+	source, err := _config(reader, c.Environment)
 	if err != nil {
 		return err
 	}

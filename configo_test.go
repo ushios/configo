@@ -1,9 +1,19 @@
 package configo
 
-import "testing"
+import (
+	"bufio"
+	"bytes"
+	"testing"
+)
 
 func TestConfigoDev(t *testing.T) {
-	config, err := Instance("sample.cfg", "dev")
+	assetByte, err := Asset("sample.cfg")
+	if err != nil {
+		t.Errorf("Asset got error (%s)", err)
+	}
+	buffer := bytes.NewBuffer(assetByte)
+
+	config, err := Instance(bufio.NewReader(buffer), "dev")
 	if err != nil {
 		t.Errorf("Cannot get config (%s)", err)
 	}
@@ -31,7 +41,13 @@ func TestConfigoDev(t *testing.T) {
 }
 
 func TestConfigoPrd(t *testing.T) {
-	config, err := Instance("sample.cfg", "prd")
+	assetByte, err := Asset("sample.cfg")
+	if err != nil {
+		t.Errorf("Asset got error (%s)", err)
+	}
+	buffer := bytes.NewBuffer(assetByte)
+
+	config, err := Instance(bufio.NewReader(buffer), "prd")
 	if err != nil {
 		t.Errorf("Cannot get config (%s)", err)
 	}
@@ -58,12 +74,24 @@ func TestConfigoPrd(t *testing.T) {
 }
 
 func TestMerge(t *testing.T) {
-	config, err := Instance("sample.cfg", "dev")
+	assetByte, err := Asset("sample.cfg")
+	if err != nil {
+		t.Errorf("Asset got error (%s)", err)
+	}
+	buffer := bytes.NewBuffer(assetByte)
+
+	config, err := Instance(bufio.NewReader(buffer), "dev")
 	if err != nil {
 		t.Errorf("Cannot get config (%s)", err)
 	}
 
-	err = config.Merge("database.cfg")
+	databaseByte, err := Asset("database.cfg")
+	if err != nil {
+		t.Errorf("Asset got error (%s)", err)
+	}
+	databaseBuffer := bytes.NewBuffer(databaseByte)
+
+	err = config.Merge(bufio.NewReader(databaseBuffer))
 	if err != nil {
 		t.Errorf("Cannot merge config (%s)", err)
 	}

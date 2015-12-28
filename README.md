@@ -27,9 +27,17 @@ host: dev.github.com
 host: github.com
 ```
 
+execute:
+```
+ $ go-bindata -pkg configo sample.cfg database.cfg
+```
+
 sample.go:
 ```sample.go
-config, err := configo.Instance("sample.cfg", "dev")
+assetByte, _ := configo.Asset("sample.cfg")
+buffer := bytes.NewBuffer(assetByte)
+
+config, err := config.Instance(bufio.NewReader(buffer), "dev")
 
 fmt.Println(config.String("host")) // dev.github.com
 ```
@@ -46,3 +54,4 @@ Thanks
 -------
 
 - [revel/config](https://github.com/revel/config)
+- [jteeuwen/go-bindata](https://github.com/jteeuwen/go-bindata)
