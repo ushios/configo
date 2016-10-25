@@ -37,9 +37,9 @@ sample.go:
 assetByte, _ := configo.Asset("sample.cfg")
 buffer := bytes.NewBuffer(assetByte)
 
-config, err := config.Instance(bufio.NewReader(buffer), "dev")
+c, err := configo.Instance(bufio.NewReader(buffer), "dev")
 
-fmt.Println(config.String("host")) // dev.github.com
+fmt.Println(c.String("host")) // dev.github.com
 ```
 
 License
