@@ -29,12 +29,12 @@ host: github.com
 
 execute:
 ```
- $ go-bindata -pkg configo sample.cfg database.cfg
+ $ go-bindata -pkg config sample.cfg database.cfg
 ```
 
 sample.go:
 ```sample.go
-assetByte, _ := configo.Asset("sample.cfg")
+assetByte, _ := config.Asset("sample.cfg")
 buffer := bytes.NewBuffer(assetByte)
 
 c, err := configo.Instance(bufio.NewReader(buffer), "dev")
